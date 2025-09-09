@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx tailwindcss -i ./css/input.css -o ./css/style.css --watch",
+    "start": "live-server --port=5500"
     "lint": "eslint .",
     "format": "prettier --write .",
     "prepare": "husky install",
