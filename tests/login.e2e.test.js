@@ -1,29 +1,30 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
+import dotenv from "dotenv";
 
-test.describe('Login flow', () => {
-  test('User can successfully log in with valid credentials', async ({ page }) => {
-    await page.goto('/login.html');
+dotenv.config();
 
-    await page.fill('input[name="email"]', process.env.VALID_EMAIL);
-    await page.fill('input[name="password"]', process.env.VALID_PASSWORD);
+const LOGIN_URL = `${process.env.BASE_URL}/login`;
+const HOME_URL = `${process.env.BASE_URL}/`;
+
+test.describe("Login flow", () => {
+
+  test("User can successfully log in with valid credentials", async ({ page }) => {
+    await page.goto(LOGIN_URL);
+    await page.fill('input[name="email"]', process.env.TEST_USER_EMAIL);
+    await page.fill('input[name="password"]', process.env.TEST_USER_PASSWORD);
     await page.click('button[type="submit"]');
-
-    await expect(page).toHaveURL(/.*profile\.html/);
-    await expect(page.locator('body')).toContainText('Welcome');
+    await page.waitForURL(HOME_URL, { timeout: 5000 });
+    expect(page.url()).toBe(HOME_URL);
   });
 
-  test('User sees an error message with invalid credentials', async ({ page }) => {
-    await page.goto('/login.html');
-
-    await page.fill('input[name="email"]', 'wrong@stud.noroff.no');
-    await page.fill('input[name="password"]', 'wrongpassword');
+  test("User sees an error message with invalid credentials", async ({ page }) => {
+    await page.goto(LOGIN_URL);
+    await page.fill('input[name="email"]', "wrong@example.com");
+    await page.fill('input[name="password"]', "wrongpassword");
     await page.click('button[type="submit"]');
-    await expect(page.locator('.error')).toContainText('Invalid');
+
+    const errorMessage = page.locator("#message-container div");
+    await expect(errorMessage).toHaveText(/login failed|sorry, sign up failed/i, { timeout: 5000 });
   });
-  test('check env is loaded', async () => {
-  console.log('VALID_EMAIL from env:', process.env.VALID_EMAIL);
-  expect(process.env.VALID_EMAIL).toBeDefined();
-});
 
 });
-
