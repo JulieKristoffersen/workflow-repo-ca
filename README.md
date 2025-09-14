@@ -84,7 +84,7 @@ npx prettier --write .
 Run unit tests:
 
 ```bash
-npm test
+npm run test:vitest
 ```
 
 Test cases include:
@@ -98,7 +98,7 @@ Run Playwright tests:
 
 ```bash
 npx playwright test tests/login.e2e.test.js
-npx playwright test tests/navigaton.e2e.test.ja
+npx playwright test tests/navigation.e2e.test.js
 ```
 
 Optional commands:
