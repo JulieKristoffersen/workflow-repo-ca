@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "dev": "npx tailwindcss -i ./css/input.css -o ./css/style.css --watch",
-    "start": "live-server --port=5500",
-    "lint": "eslint .",
-    "format": "prettier --write .",
-    "prepare": "husky install",
-    "test": "vitest",
-    "test:e2e": "playwright test"
-  },
+ "scripts": {
+  "dev": "npx tailwindcss -i ./css/input.css -o ./css/style.css --watch",
+  "start": "live-server --port=5500",
+  "lint": "eslint .",
+  "format": "prettier --write .",
+  "prepare": "husky install",
+  "test:vitest": "vitest",
+  "test:e2e": "playwright test"
+}
+,
   "keywords": [],
   "author": "",
   "license": "ISC",
